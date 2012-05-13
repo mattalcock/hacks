@@ -1,32 +1,6 @@
-import random, string
 from operator import itemgetter
-
-#######  Some functions to generate random things  ######
-
-#Produces a random string, takes a seed list of chars
-#Q36NXHGFW0
-def random_string(size=10, chars=string.ascii_uppercase + string.digits):
-    return ''.join(random.choice(chars) for x in xrange(size))
-
-#Produces a random int between a range
-#56
-def random_int(start=0, end=100):
-    return random.randrange(start,end,1)
-
-#Produces a random digit or a fixed size of intergers
-#915292325494
-def random_digits(size=12):
-    start=(10**(size-1))
-    end=(10**(size))-1
-    return random.randrange(start,end,1)
-
-####### Random list functions
-
-#Produces a random string, takes a sead list of char
-def random_int_list(size=100, start=0, end=1000):
-    return (random.randrange(start,end,1) for x in xrange(size))
-
-
+from array import array
+from randfunc import random_int_list
 ####### Search Functions
 
 #Tells you if somthing exists (True/False)
@@ -93,16 +67,113 @@ def word_to_int(word):
 
 ####### Sorting Functions
 
+#Python Inbuilt Sort
+def python_sort(l):
+    return sorted(l)
+    
+#Merge
+def merge(left, right):
+    result, i, j = [], 0, 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+    
+def mergearrays(left, right):
+    i, j, c= 0, 0, 0
+    x = len(left) + len(right)
+    result = array('l')
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    c+=1
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+
 #Merge Sort
+def merge_sort(l, mergef=merge):
+    length = len(l)
+    cut=length/2
+    if length<=1:
+        return l
+    left = merge_sort(l[:cut])
+    right = merge_sort(l[cut:])
+    return list(mergef(left, right))
+    
+#Merge Sort
+def merge_sort2(l, mergef=mergearrays):
+    length = len(l)
+    cut=length/2
+    if length<=1:
+        return l
+    left = merge_sort(l[:cut])
+    right = merge_sort(l[cut:])
+    return list(mergef(left, right))
 
 #Quick Sort
+def quick_sort(l):
+    length = len(l)
+    if length <=1:
+        return l
+    else:
+        pivot = l.pop(int(length/2))
+        less, more = [], []
+        for x in l:
+            if x<=pivot:
+                less.append(x)
+            else:
+                more.append(x)
+        return quick_sort(less) + [pivot] + quick_sort(more)
+
+#Insertion Sort
+def insert_sort(l):
+    for i in range(1, len(l)):
+        save=l[i]
+        j=i
+        while j>0 and l[j-1] > save:
+            l[j] = l[j-1]
+            j-=1
+        l[j] = save
+    return l
+
+####### Adaptive Sorting Algos
+def adapt_quick_sort(l, sortf=insert_sort, size=5):
+    length = len(l)
+    if length <= size:
+        return sortf(l)
+    else:
+        pivot = l.pop(int(length/2))
+        less, more = [], []
+        for x in l:
+            if x<=pivot:
+                less.append(x)
+            else:
+                more.append(x)
+        return quick_sort(less) + [pivot] + quick_sort(more)
+
+def adapt_merge_sort(l, sortf=insert_sort, size=7):
+    length = len(l)
+    cut=length/2
+    if length<=size:
+        return insert_sort(l)
+    left = merge_sort(l[:cut])
+    right = merge_sort(l[cut:])
+    return merge(left, right)
 
 ####### Hash Tables
 
 if __name__ == '__main__':
-    print random_string()                   #Q36NXHGFW0
-    print random_int()                      #56
-    print random_digits()                   #915292325494
     print [i for i in random_int_list()]    #[212, 436, 615, 160, 775, ....]
     
     #Binary Search - Functional Style
@@ -130,6 +201,22 @@ if __name__ == '__main__':
     meta = [(i,word_to_int(words[i]), words[i]) for i in xrange(len(words))]
     print meta
     print sorted(meta, key=itemgetter(1))
+    
+    #Sorting
+    random_list = [i for i in random_int_list(6)]
+    print merge_sort(random_list)
+    
+    random_list = [i for i in random_int_list()]
+    print merge_sort(random_list)
+    
+    random_list = [i for i in random_int_list()]
+    print quick_sort(random_list)
+    
+    random_list = [i for i in random_int_list()]
+    print insert_sort(random_list)
+    
+    random_list = [i for i in random_int_list()]
+    print merge_sort(random_list, mergef=mergearrays)
     
     #Speed Tests
     
