@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% block head_meta %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+    {% endblock %}
+        <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
+  </head>
+  <body>
+    <div>
+      <h1> DrillDown Example </h1>
+      <h3> Traffic </h3>
+      <div  id='keychart'> 
+        <div class="svg"></div>
+      </div>
+      <div  id='charts'> </div>
+
+      <div class="controls">
+        <fieldset id="type">
+          
+          <input type="radio" id="type_all" name="type" value="all" checked="checked"/>
+          <label for="type_all" class="sel"> <span class="all">All</span> </label> 
+
+          <input type="radio" id="type_organic" name="type" value="organic"/>
+          <label for="type_organic"><span class="organic">Organic</span></label> 
+          
+          <input type="radio" id="type_paid" name="type" value="paid"/>
+          <label for="type_paid"><span class="paid">Paid</span></label> 
+          
+          <input type="radio" id="type_social" name="type" value="social"/>
+          <label for="type_social"><span class="social">Social</span></label>
+        </fieldset>
+
+      </div>
+
+    </div>
+  </body>
+
+  <script src="{{ url_for('static', filename='jquery-1.6.2.min.js') }}" type="text/javascript"></script>
+  <script src="{{ url_for('static', filename='d3.v2.min.js') }}" type="text/javascript"></script>
+  <script src="{{ url_for('static', filename='d3.layout.min.js') }}" type="text/javascript"></script>
+
+  <script src="{{ url_for('static', filename='drilldown.js') }}" type="text/javascript"></script>
+</html>

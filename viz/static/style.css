@@ -1,0 +1,192 @@
+/* Graph Viz Styling */
+
+.node circle {
+  stroke-width: 1.5px;
+}
+
+.node {
+  font: 10px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+/* Grid Viz Styling */
+
+#grid {
+	clear: all;
+	margin-bottom: 20px;
+	height: 370px;
+	height: 285px;
+}
+
+/* Tile Styling */
+
+#tiles {
+	font-size: 12px;
+	clear: both;
+}
+
+#tiles th {
+	vertical-align: top;
+	padding: 3px;
+	color: #ccc;
+}
+
+th.h7, th.h8, th.h9, th.h10, th.h11, th.h12, th.h13, th.h14, th.h15, th.h16, th.h17, th.h18, th.h19 {
+	color: #444 !important;
+}  
+
+#tiles tr th {
+	padding-top: 12px;
+}
+
+#tiles tr:first-child th {
+	padding-top: 3px;
+}
+
+#tiles td {
+	-webkit-perspective: 1000;
+}
+
+#tiles .tile {
+	width: 38px;
+	height: 38px;
+	position: relative;
+	-webkit-transform-style: preserve-3d;
+	-webkit-transition: 0.7s;
+}
+
+/* Tile Transistions */
+
+.face {
+	position: absolute;
+	-webkit-backface-visibility: hidden;
+	width: 36px;
+	height: 36px;
+	background: #eee;
+	border: 1px solid white;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+#tiles td.sel .face {
+	border-color: black;
+}
+
+.face.hidden {
+	display: none;
+}
+
+#tiles td.dim .screen {
+	opacity: 0.6;
+}
+
+.face.back {
+	-webkit-transform: rotateY(180deg);
+}
+
+
+/* Controls */
+
+#controls fieldset {
+	width: 250px;
+}
+
+#controls span {
+	float: left;
+	width: 120px;
+	clear: left;
+}
+
+#controls button {
+	float: left;
+}
+
+fieldset#state label, fieldset#state input {
+	display: none;
+}
+
+fieldset#state.ff3 {
+	width: 500px;
+}
+
+fieldset#state.ff3 label {
+	display: block !important;
+}
+
+fieldset#type {
+	margin-right: 49px;
+	float: left;
+}
+
+.controls {
+	margin: 0 0 20px 7px;
+	font-size: 12px;
+	line-height: 12px;
+}
+
+.controls input {
+	display: none;
+	width: 0;
+	height: 0;
+	margin: 0;
+	padding: 0;
+	opacity: 0;
+}
+
+.controls label {
+	float: left;
+	display: block;
+	cursor: pointer;
+	padding: 4px 6px;
+	background: #ddd;
+	border: 1px solid #ccc;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	margin: 0 3px 2px 0;
+	color: #888;
+}
+
+.controls label:hover {
+	background: #999;
+	color: white;
+	border: 1px solid #888;
+}
+
+.controls label.sel {
+	background: #444;
+	color: white;
+	border: 1px solid #333;
+	cursor: default;
+}
+
+.controls button {
+	padding: 2px 6px 3px 6px;
+	background: #ddd;
+	border: 1px solid #ccc;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	cursor: pointer;
+	color: #888;
+	font-size: 12px;
+	margin: 0;
+	
+}
+
+.controls button:hover {
+	background: #999;
+	color: white;
+	border: 1px solid #888;
+}
+
+.controls button.sel {
+	background: #444;
+	color: white;
+	border: 1px solid #333;
+	cursor: default;
+}
+
