@@ -1,20 +1,6 @@
-#Returns the True/False if there is at least one subset of the list S that sums to x
-def subsetsum(S, x):
-    if len(S)==1:
-        return x==S[0]
-    L, R = S[0], S[1:]
-    return x==L or subset(R, x - L) or subset(R, x)
 
-#A modification of the above with some memory storage. Not sure how usefull this is.
-#!!Marked For Delete!!
-def subsetm(S, x, mem={}):
-    k = (str(S), x)
-    if k not in mem:
-        if len(S)==1:
-            return x==S[0]
-        L, R = S[0], S[1:]
-        mem[k] = x==L or (subsetm(R, x - L) or subsetm(R, x))
-    return mem
+""" Subset Sum Funcitonal Approach
+"""
 
 #Returns the values that sum to x in the list S. 
 #Becuase of the functional nature of this C must be passed in. (Unsure why can't be defaulted)
@@ -58,7 +44,11 @@ def subsetsum(S, x):
     L, R = S[0], S[1:]
     return x==L or subsetsum(R, x - L) or subsetsum(R, x)
 
-#Returns a tubel of positive and negative values for the list S.
+
+""" Subset Sum Dynamic Programming Approach
+"""
+
+#Returns a tuble of positive and negative values for the list S.
 def pos_neg_sum(S):
     P, N = 0, 0
     for e in S:
@@ -94,14 +84,65 @@ def subset_sum(S, x=0):
     for i in xrange(1, n):
         for j in xrange(N, P+1):
             table[i][j] = S[i] == j or table[i-1][j] or table[i-1][j-S[i]]
-    print "Table is %s" % table
+    #print "Table is %s" % table
     return table[n-1][x]
-
 
 
 #Covert these into tests!
 
+def run_tests():
+
+    R = [1,3,-4,9]
+    S = [1,3,-4,9,20,50,4,0,12,11,8,7]
+    V = [True,True,True,True,False,False,True,True,True,False,False,False]
+
+    print "Testing Set: %s for %s different summations" % (R, len(S))
+
+    for x in xrange(len(S)):
+        s, passed = S[x], True
+        print "Testing Set: %s has a subset sum of %s" % (R, s)
+        
+        func_result = subsetsum(R, s)    
+        dynamic_result = subset_sum(R, s)
+        locs = subsetsum_loc(R, s, [], 0)
+        vals = subsetsum_find(R, s, [])
+
+        if func_result!=dynamic_result:
+            print "Error: Dynamic and Fucntional Code Disagree"
+            passed = False
+
+        for i in xrange(len(locs)):
+            if R[locs[i]] != vals[i]:
+                print "Error: Locations and Values Don't Match"
+                passed = False
+
+        if func_result != V[x]:
+            print "Error: Subset Sum Should be %s and is %s" % (V[x], func_result)
+            passed = False
+
+        if not passed:
+            print "Functional Result: %s" % func_result
+            print "Dynamic Result: %s" % dynamic_result
+            print "Loctions Address': %s" % locs
+            print "Result Values: %s" %  vals
+        else:
+            print "Test Passed"
+
+#Ideally I'd run performance tests with some sort of decorator or annotation but these are functional calls
+#The blow runs a vareity of tests for lists of different structures.
+def run_performance_tests():
+    pass
+
 if __name__ == '__main__':
+
+    run_tests()
+    run_performance_tests()
+
+    """ Convert the below into a test sweet
+    """
+
+
+    """
     R = [1,3,-4,9]
     #print R[:3]
 
@@ -174,3 +215,4 @@ if __name__ == '__main__':
     #print subset_sum(R, -3)
     #print subset_sum(R, -6)
     #print subset_sum(R, -2)
+    """
