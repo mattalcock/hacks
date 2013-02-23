@@ -1,7 +1,7 @@
 #!/ms/dist/python/PROJ/core/2.7.1/bin/python
 from collections import defaultdict
 
-def hex_bitcount ( S ):
+def hex_bitcount( S ):
     hex_string="0x" + S.lower()
     n = int(hex_string,0)
     b = str(bin(n))[2::]
@@ -12,7 +12,7 @@ def hex_bitcount ( S ):
 
 print hex_bitcount("2F")
 
-def heavy_decimal_count ( A,B ):
+def heavy_decimal_count(A, B):
     limit = 7
     heavy_count = 0
     for n in xrange(A, B+1):
@@ -24,7 +24,7 @@ def heavy_decimal_count ( A,B ):
 
 print heavy_decimal_count(8675, 8689)
 
-def arrLeader ( A ):
+def arrLeader(A):
     counter = defaultdict(int)
     for a in A:
         counter[a]+=1
@@ -37,7 +37,7 @@ def arrLeader ( A ):
     else:
         return -1
         
-def arrLeader ( A ):
+def arrLeader_new(A):
     lead_return = -1
     lead_count=0
     lead=A[0]
@@ -63,7 +63,7 @@ def arrLeader ( A ):
         lead_return = lead 
     return lead_return
 
-listOne = [4,2,2,3,2,4,2,2,6,4]
+listOne = [4, 2, 2, 3, 2, 4, 2, 2, 6, 4]
 listTwo = [100,50,1,1,1]
 print arrLeader(listOne)
 print arrLeader(listTwo)
