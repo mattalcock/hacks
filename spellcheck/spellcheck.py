@@ -9,7 +9,7 @@ def train(features):
         model[f] += 1
     return model
 
-NWORDS = train(words(file('big.txt').read()))
+NWORDS = train(words(file('../data/corpus.txt').read()))
 alphabet = 'abcdefghijklmnopqrstuvwxyz'
 
 def edits1(word):
